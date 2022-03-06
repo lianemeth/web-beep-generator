@@ -1,0 +1,11 @@
+{
+  "name": "web-beep-generator",
+  "version": "0.0.1",
+  "description": "Browser based generative music project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Lia Nemeth",
+  "license": "MIT"
+}
