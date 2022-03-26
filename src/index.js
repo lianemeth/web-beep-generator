@@ -1,22 +1,22 @@
 import * as Tone from 'tone'
 
-function CMajor(delay) {
+function TriadLoop(notes, interval) {
     //create a synth and connect it to the main output (your speakers)
     const synth = new Tone.Synth().toDestination();
-
-    const now = Tone.now()
-    //play a middle 'C' for the duration of an 8th note
-    synth.triggerAttackRelease("C4", "8n", now + delay);
-    synth.triggerAttackRelease("E4", "16n", now + delay + 0.5);
-    synth.triggerAttackRelease("G4", "8n", now + delay + 1);
+    const loop = new Tone.Loop(time => {
+        synth.triggerAttackRelease(notes[0], "8n", time);
+        synth.triggerAttackRelease(notes[1], "16n", time +  0.5);
+        synth.triggerAttackRelease(notes[2], "8n", time +  1);
+        }, interval).start(0);
+    return loop
 }
 
 //attach a click listener to a play button
 document.querySelector('button')?.addEventListener('click', async () => {
-	await Tone.start();
-    CMajor(0);
-    CMajor(1.5);
-	console.log('audio is ready')
+    await Tone.start()
+    const loopA = TriadLoop(["C4", "E4", "G4"], "1n");
+    const loopB = TriadLoop(["D4", "F#4", "A4"], "8n");
+    Tone.Transport.start();
 })
 
 //document.body.appendChild(component());
